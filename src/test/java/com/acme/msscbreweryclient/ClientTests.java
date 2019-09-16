@@ -3,6 +3,7 @@ package com.acme.msscbreweryclient;
 import java.net.URI;
 import java.util.UUID;
 
+import com.acme.msscbrewery.domain.BaseDto;
 import com.acme.msscbrewery.domain.BeerDto;
 import com.acme.msscbrewery.domain.BeerStyle;
 
@@ -24,7 +25,9 @@ class ClientTests {
 
 	@Test
 	void saveBeer() {
-		URI uri = client.save(BeerDto.builder().beerName("Busch Light").beerStyle(BeerStyle.Lager).build());
+		BaseDto baseDto = BaseDto.builder().id(UUID.randomUUID()).build();
+		BeerDto beerDto = BeerDto.builder().baseDto(baseDto).beerName("Busch Light").beerStyle(BeerStyle.Lager).build();
+		URI uri = client.save(beerDto);
 		System.out.println(uri);
 	}
 }
